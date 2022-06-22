@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Cell from '../Cell';
-import { valueResolver, type ValueType } from '../../utils';
+import { valueResolver, checkWin, type ValueType } from '../../utils';
 import './styles.css';
 
 interface BoardProps {
@@ -13,47 +13,6 @@ const Board = ({size}: BoardProps) => {
   const [currentValue, setCurrentValue] = useState<(1 | -1)>(1);
   const [winner, setWinner] = useState<(ValueType)>(0);
   
-  const checkWin = useCallback((gameData: ValueType[][], currentVal: 1 | -1) => {
-    // validate row
-    for(let row = 0; row < gameData.length; row++) {
-      let win = true;
-      for(let col = 0; col < gameData[row].length; col++) {
-        if(gameData[row][col] !== currentVal) win = false;
-      }
-
-      if(win) return true;
-    }
-
-    // validate column
-    for(let col = 0; col < gameData[0].length; col++) {
-      let win = true;
-      for(let row = 0; row < gameData.length; row++) {
-        if(gameData[row][col] !== currentVal) win = false;
-      }
-
-      if(win) return true;
-    }
-
-    // validate diagonal
-    {
-      let win = true;
-      const max = gameData[0].length - 1;
-      for(let row = 0; row < gameData.length; row++) {
-        if(gameData[row][max - row] !== currentVal) win = false;
-      }
-      if(win) return true;
-    }
-
-    {
-      let win = true;
-      for(let row = 0; row < gameData.length; row++) {
-        if(gameData[row][row] !== currentVal) win = false;
-      }
-      if(win) return true;
-    }
-    return false;
-  }, []);
-
   const onCellClick = useCallback((row: number, col: number): void => {
     if(winner) return;
 
@@ -69,10 +28,19 @@ const Board = ({size}: BoardProps) => {
   }, [data, currentValue]);
 
   return (
-    <div className="board-container">
+    <div>
       {
         data.map((row, rowIndx) => 
-          row.map((val, colIndex) => <Cell key={`${rowIndx}/${colIndex}`} value={val} onCellClick={() => onCellClick(rowIndx, colIndex)} />)
+          <div className="row">
+           {
+            row.map((val, colIndex) => 
+                <Cell 
+                  key={`${rowIndx}/${colIndex}`} 
+                  value={val} 
+                  onCellClick={() => onCellClick(rowIndx, colIndex)} />
+              )
+           }
+          </div>
         )
       }
       {winner !== 0 && <div>The winner is {valueResolver(winner)}</div>}

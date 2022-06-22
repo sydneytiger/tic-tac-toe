@@ -7,7 +7,7 @@ import Cell from './components/Cell';
 function App() {
   return (
     <div className="App">
-      <Board size={3} />
+      <Board size={4} />
     </div>
   );
 }

@@ -1,17 +1,27 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Cell from '../Cell';
 import { valueResolver, checkWin, type ValueType } from '../../utils';
 import './styles.css';
 
 interface BoardProps {
   size: number;
+  reset: number;
 }
 
-const Board = ({size}: BoardProps) => {
+const Board = ({ size, reset }: BoardProps) => {
   // init data base on size
   const [data, setData] = useState<ValueType[][]>(Array(size).fill(Array(size).fill(0)));
   const [currentValue, setCurrentValue] = useState<(1 | -1)>(1);
   const [winner, setWinner] = useState<(ValueType)>(0);
+
+  useEffect(() => {
+    // avoid the unneccesary call on first render
+    if(reset !== 0) {
+      setData(Array(size).fill(Array(size).fill(0)));
+      setWinner(0);
+      setCurrentValue(1);
+    }
+  }, [reset]);
   
   const onCellClick = useCallback((row: number, col: number): void => {
     if(winner) return;
@@ -30,14 +40,14 @@ const Board = ({size}: BoardProps) => {
   return (
     <div>
       {
-        data.map((row, rowIndx) => 
-          <div className="row">
+        data.map((row, rowIndex) => 
+          <div className="row" key={rowIndex}>
            {
             row.map((val, colIndex) => 
                 <Cell 
-                  key={`${rowIndx}/${colIndex}`} 
+                  key={`${rowIndex}/${colIndex}`} 
                   value={val} 
-                  onCellClick={() => onCellClick(rowIndx, colIndex)} />
+                  onCellClick={() => onCellClick(rowIndex, colIndex)} />
               )
            }
           </div>

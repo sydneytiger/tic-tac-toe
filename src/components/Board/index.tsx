@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Cell from '../Cell';
-import { valueResolver, checkWin, type ValueType } from '../../utils';
+import { valueResolver, checkWin, ValueType } from '../../utils';
 import './styles.css';
 
 interface BoardProps {

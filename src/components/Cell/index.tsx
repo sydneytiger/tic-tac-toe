@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { valueResolver, type ValueType } from '../../utils';
+import { valueResolver, ValueType } from '../../utils';
 
 interface CellProps {
   value: ValueType;

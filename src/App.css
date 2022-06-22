@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 50px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

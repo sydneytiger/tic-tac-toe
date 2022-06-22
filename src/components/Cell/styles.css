@@ -1,0 +1,13 @@
+.cell-frame {
+  border: 1px solid black;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.pointer {
+  cursor: pointer;
+}

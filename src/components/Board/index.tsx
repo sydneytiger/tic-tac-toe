@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Cell from '../Cell';
-import { valueResolver, checkWin, ValueType } from '../../utils';
+import { valueResolver, checkWin, updateGameDataWithClone, ValueType, GameDataType } from '../../utils';
 import './styles.css';
 
 interface BoardProps {
@@ -10,7 +10,7 @@ interface BoardProps {
 
 const Board = ({ size, reset }: BoardProps) => {
   // init data base on size
-  const [data, setData] = useState<ValueType[][]>(Array(size).fill(Array(size).fill(0)));
+  const [data, setData] = useState<GameDataType>(Array(size).fill(Array(size).fill(0)));
   const [currentValue, setCurrentValue] = useState<(1 | -1)>(1);
   const [winner, setWinner] = useState<(ValueType)>(0);
 
@@ -29,11 +29,10 @@ const Board = ({ size, reset }: BoardProps) => {
     const selectedCellValue = data[row][col];
 
     if(selectedCellValue === 0) {
-      const newData = data.map(x => x.slice());
-      newData[row][col] = currentValue;
-      setData(newData);
+      const newGameData = updateGameDataWithClone(data, currentValue, row, col)
+      setData(newGameData);
       setCurrentValue(currentValue === 1 ? -1 : 1);
-      checkWin(newData, currentValue) && setWinner(currentValue);
+      checkWin(newGameData, currentValue) && setWinner(currentValue);
     }
   }, [data, currentValue]);
 

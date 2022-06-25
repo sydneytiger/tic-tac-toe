@@ -24,3 +24,7 @@
 .item {
   margin: 10px;
 }
+
+.board-size-input {
+  width: 60px;
+}

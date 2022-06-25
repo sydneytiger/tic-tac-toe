@@ -23,7 +23,8 @@ function App() {
             name="boardSize" 
             value={boardSize} 
             min="3" 
-            max="10" 
+            max="100" 
+            className="board-size-input"
             onChange={handleBoardSizeChange} />
           </div>
         <div className="item"><button type="button" onClick={handleReset}>Reset</button></div>

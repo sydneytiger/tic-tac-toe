@@ -2,6 +2,8 @@ import { ChessType, GameDataType, GameResult, ValueType } from './types';
 
 export const valueResolver = (value: ValueType) => value === -1 ? '❌' : value === 1 ? '⭕' : '';
 
+// Loop through all cells on the board
+// time complexity O(n^2) for a size n * n board 
 export const checkWin = (gameData: GameDataType, currentVal: ChessType) => {
   // validate horizontally
   for(let row = 0; row < gameData.length; row++) {
@@ -44,6 +46,8 @@ export const checkWin = (gameData: GameDataType, currentVal: ChessType) => {
   return false;
 }
 
+// Loop through board result
+// time complexity O(2n) for a size n * n board
 export const checkWinner = (gameResult: GameResult, boardSize: number, currentVal: ChessType) => {
   const valueToWin = boardSize * currentVal;
   console.log(`valueToWin ${valueToWin}`);

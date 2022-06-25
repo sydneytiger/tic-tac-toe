@@ -42,7 +42,9 @@ const Board = ({ size, reset }: BoardProps) => {
       const newGameData = updateGameDataWithClone(data, currentValue, row, col)
       setData(newGameData);
       setCurrentValue(currentValue === 1 ? -1 : 1);
+      console.time('check win');
       checkWinner(gameResult, size, currentValue) && setWinner(currentValue);
+      console.timeEnd('check win');
     }
   }, [data, currentValue]);
 

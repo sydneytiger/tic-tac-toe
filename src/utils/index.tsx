@@ -50,15 +50,12 @@ export const checkWin = (gameData: GameDataType, currentVal: ChessType) => {
 // time complexity O(2n) for a size n * n board
 export const checkWinner = (gameResult: GameResult, boardSize: number, currentVal: ChessType) => {
   const valueToWin = boardSize * currentVal;
-  console.log(`valueToWin ${valueToWin}`);
-  
+
   for(let i = 0; i < gameResult.rowResult.length; i++) {
-    console.log(`i ${i}`);
     if(gameResult.rowResult[i] === valueToWin) return true;
   }
 
   for(let j = 0; j < gameResult.colResult.length; j++) {
-    console.log(`j ${j}`);
     if(gameResult.colResult[j] === valueToWin) return true;
   }
 

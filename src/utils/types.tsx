@@ -16,10 +16,6 @@ export type StateRowType = {
   cells: StateCellType[];
 };
 
-// export type StateCurrentValueType =  {
-//   value: ChessType;
-// }
-
 export type StateType = {
   rows: StateRowType[];
   currentValue: ChessType;

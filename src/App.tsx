@@ -33,7 +33,7 @@ function App() {
     }
 
     return state;
-  }, [boardSize]);
+  }, [boardSize, reset]);
 
 
   return (

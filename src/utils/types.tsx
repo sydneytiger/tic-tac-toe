@@ -23,4 +23,6 @@ export type StateRowType = {
 export type StateType = {
   rows: StateRowType[];
   currentValue: ChessType;
+  gameResult: GameResult;
+  winner: ValueType;
 };

@@ -48,24 +48,21 @@ export const checkWin = (gameData: GameDataType, currentVal: ChessType) => {
 
 // Loop through board result
 // time complexity O(2n) for a size n * n board
-export const checkWinner = (gameResult: GameResult, boardSize: number, currentVal: ChessType) => {
+export const checkWinner = (gameResult: GameResult, boardSize: number, currentVal: ChessType): ValueType => {
   const valueToWin = boardSize * currentVal;
-  console.log(`valueToWin ${valueToWin}`);
   
   for(let i = 0; i < gameResult.rowResult.length; i++) {
-    console.log(`i ${i}`);
-    if(gameResult.rowResult[i] === valueToWin) return true;
+    if(gameResult.rowResult[i] === valueToWin) return currentVal;
   }
 
   for(let j = 0; j < gameResult.colResult.length; j++) {
-    console.log(`j ${j}`);
-    if(gameResult.colResult[j] === valueToWin) return true;
+    if(gameResult.colResult[j] === valueToWin) return currentVal;
   }
 
-  if(gameResult.forwardResult === valueToWin) return true;
-  if(gameResult.backwardResult === valueToWin) return true;
+  if(gameResult.forwardResult === valueToWin) return currentVal;
+  if(gameResult.backwardResult === valueToWin) return currentVal;
 
-  return false;
+  return 0;
 }
 
 export const updateGameDataWithClone = (gameData: GameDataType, currentVal: ChessType, row: number, col: number): GameDataType => {

@@ -13,7 +13,7 @@ interface BoardProps {
 
 const Board = observer(({ size, reset, state }: BoardProps) => {
   // const [currentValue, setCurrentValue] = useState<(1 | -1)>(1);
-  const [winner, setWinner] = useState<(ValueType)>(0);
+  // const [winner, setWinner] = useState<(ValueType)>(0);
 
   // useEffect(() => {
   //   // avoid the unneccesary call on first render
@@ -24,27 +24,8 @@ const Board = observer(({ size, reset, state }: BoardProps) => {
   //   }
   // }, [reset]);
 
-  // const gameResult = useMemo(() => initGameResult(size), [size, reset])
-  
-  // const onCellClick = useCallback((row: number, col: number): void => {
-    // if(winner) return;
+  // const currentVal = state.currentValue;
 
-    // const selectedCellValue = data[row][col];
-
-    // console.log(`row: ${row}, col: ${col}`);
-    // gameResult.rowResult[row] += currentValue;
-    // gameResult.colResult[col] += currentValue;
-    // if(row === col) gameResult.backwardResult += currentValue;
-    // if(row + col === size - 1) gameResult.forwardResult += currentValue;
-    // console.log(gameResult);
-
-    // if(selectedCellValue === 0) {
-    //   const newGameData = updateGameDataWithClone(data, currentValue, row, col)
-    //   setData(newGameData);
-    //   setCurrentValue(currentValue === 1 ? -1 : 1);
-    //   checkWinner(gameResult, size, currentValue) && setWinner(currentValue);
-    // }
-  // }, [currentValue]);
 
   return (
     <div>
@@ -55,14 +36,17 @@ const Board = observer(({ size, reset, state }: BoardProps) => {
             row.cells.map((cellState, colIndex) => 
                 <Cell 
                   key={`${rowIndex}/${colIndex}`} 
+                  rowIndex={rowIndex}
+                  colIndex={colIndex}
                   cellState={cellState} 
-                  state={state} />
+                  state={state} 
+                />
               )
            }
           </div>
         )
       }
-      {winner !== 0 && <div>The winner is {valueResolver(winner)}</div>}
+      {state.winner !== 0 && <div>The winner is {valueResolver(state.winner)}</div>}
     </div>
   )
 

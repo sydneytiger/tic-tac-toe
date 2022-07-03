@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { makeAutoObservable } from "mobx";
+import { initGameResult } from './utils';
 import { StateType, StateRowType, StateCellType } from './utils/types';
 import './App.css';
 import Board from './components/Board';
@@ -18,7 +19,9 @@ function App() {
   const initState = useMemo(() => {
     const state = makeAutoObservable<StateType>({ 
       rows: [],
-      currentValue: 1
+      currentValue: 1,
+      gameResult: initGameResult(boardSize),
+      winner: 0
     });
 
     for (let i = 0; i < boardSize; i++) {

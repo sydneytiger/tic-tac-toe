@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { makeAutoObservable } from "mobx";
+import { StateType, StateRowType, StateCellType } from './utils/types';
 import './App.css';
 import Board from './components/Board';
 
@@ -12,6 +14,24 @@ function App() {
   }
 
   const handleReset = () => doReset(prev => prev + 1);
+
+  const initState = useMemo(() => {
+    const state = makeAutoObservable<StateType>({ 
+      rows: [],
+      currentValue: 1
+    });
+
+    for (let i = 0; i < boardSize; i++) {
+      const row = makeAutoObservable<StateRowType>({ cells: [] });
+      for (let j = 0; j < boardSize; j++) {
+        row.cells.push(makeAutoObservable<StateCellType>({ value: 0 }));
+      }
+      state.rows.push(row);
+    }
+
+    return state;
+  }, [boardSize]);
+
 
   return (
     <div className="App">
@@ -27,8 +47,17 @@ function App() {
             className="board-size-input"
             onChange={handleBoardSizeChange} />
           </div>
-        <div className="item"><button type="button" onClick={handleReset}>Reset</button></div>
-        <div className="item"><Board size={boardSize} reset={reset}/></div>
+        <div className="item">
+          <button 
+            type="button" 
+            onClick={handleReset}>Reset</button>
+          </div>
+        <div className="item">
+          <Board 
+            size={boardSize} 
+            reset={reset} 
+            state={initState}/>
+        </div>
       </div>
     </div>
   );

@@ -7,3 +7,20 @@ export interface GameResult {
   forwardResult: number;
   backwardResult: number;
 }
+
+export type StateCellType = {
+  value: ValueType;
+}
+
+export type StateRowType = {
+  cells: StateCellType[];
+};
+
+// export type StateCurrentValueType =  {
+//   value: ChessType;
+// }
+
+export type StateType = {
+  rows: StateRowType[];
+  currentValue: ChessType;
+};
